@@ -52,5 +52,5 @@
 /.web-server-pid
 
 #env
-/.env
-/.env.test
+.env
+.env.test
