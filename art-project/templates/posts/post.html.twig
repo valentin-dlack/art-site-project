@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PostsController!{% endblock %}
+
+{% block body %}
+
+<div>
+    <div class="max-w-full mx-64 my-10 px-4 py-4 bg-white rounded-lg shadow-lg">
+        <div class="float-right">
+            <p class="text-md font-thin">{{ post.createdat.format('d/m/Y G:i') }}</p>
+        </div>
+        <div class="float-left">
+            <p class="text-md font-thin">By {{ post.users.name }}</p>
+        </div>
+        <div class="text-center">
+            <p class="text-3xl font-semibold">{{ post.title }}</p>
+        </div>
+        <div class="mt-3">
+            <span class="">{{ post.content }}</span>
+        </div>
+    </div>
+</div>
+{% endblock %}

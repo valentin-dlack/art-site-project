@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+<form method="post">
+
+    {% if app.user %}
+    <div class="mb-3">
+        You are logged in as {{ app.user.name }}, <a href="{{ path('app_logout') }}">Logout</a>
+    </div>
+    {% endif %}
+
+    <!-- CARD -->
+
+    <div class="max-w-sm mx-auto flex p-6 bg-white rounded-lg shadow-xl mt-10">
+        <div class="ml-5 pt-1">
+            <h4 class="text-sm text-gray-800 font-bold ">Username</h4>
+            <input type="email" name="email" id="inputEmail"
+                class="shadow-md text-black border rounded-md w-full px-4 py-3 mt-2" placeholder="Email" required
+                autofocus>
+            <h4 class="text-sm text-gray-800 font-bold mt-4">Password</h4>
+            <input type="password" name="password" id="inputPassword"
+                class="shadow-md text-black border rounded-md w-full px-4 py-3 mt-2" autocomplete="current-password"
+                placeholder="*************" required>
+            <button type="submit"
+                class="bg-blue-400 hover:bg-blue-300 text-white font-bold py-2 px-2 mt-3 w-full rounded">Log-in</button>
+        </div>
+    </div>
+    {% if error %}
+    <div class="mx-auto max-w-sm bg-red-100 border border-red-500 text-red-800 px-4 py-3 rounded relative my-5"
+        role="alert">
+        <span class="block sm:inline">{{ error.messageKey|trans(error.messageData, 'security') }}</span>
+    </div>
+    {% endif %}
+
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+    {#
+        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+        See https://symfony.com/doc/current/security/remember_me.html
+
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="_remember_me"> Remember me
+            </label>
+        </div>
+    #}
+</form>
+<a class="mx-auto" href="register">
+    <p class="text-center text-sm underline text-gray-600 mt-5">Je n'ai pas de compte</p>
+</a>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Home Demo' %}
+
+{% block body %}
+<body class="bg-gray-300">
+  
+  {% for user in users %}
+    <p>{{user.Name}}</p>
+  {% endfor %}
+
+</body>
+
+{% endblock %}

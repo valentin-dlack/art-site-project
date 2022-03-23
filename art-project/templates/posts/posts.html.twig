@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PostsController!{% endblock %}
+
+{% block body %}
+
+<div class="example-wrapper">
+    <h1>Hello You! ✅</h1>
+
+    This friendly message is coming from: Me
+    <div>
+        {% for post in posts %}
+        <a href="{{ path("show_post", {id: post.id}) }}">
+        <div class="my-2 px-4 py-4 mx-auto max-w-6xl bg-white rounded-md shadow-md">
+            <p class="text-xl">{{ post.title }}</p>
+            <br>
+            <p class="text-base line-clamp-4">{{ post.content }}</p>
+        </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

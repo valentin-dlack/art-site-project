@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello NewPost!{% endblock %}
+
+{% block body %}
+<div class="example-wrapper">
+    {% for message in app.flashes('success') %}
+    <div class="text-green-500">
+        {{ message }}
+    </div>
+    {% endfor %}
+
+    <!-- CARD -->
+
+    {{form_start(post_form)}}
+    <div class="max-w-full flex p-6 bg-white rounded-lg shadow-xl mt-10 mx-20">
+        {{form(post_form)}}
+    </div>
+    <button type="submit"
+        class="bg-blue-400 hover:bg-blue-300 text-white font-bold py-2 px-2 mt-3 w-full rounded">Create !</button>
+    <p>{{form_errors(post_form)}}</p>
+    {{form_end(post_form)}}
+</div>
+{% endblock %}
