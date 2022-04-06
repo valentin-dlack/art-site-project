@@ -49,11 +49,15 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'users', targetEntity: Comments::class)]
     private $comments;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Commission::class)]
+    private $commissions;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
         $this->likes = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->commissions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -267,5 +271,35 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function __toString()
     {
         return $this->Name;
+    }
+
+    /**
+     * @return Collection<int, Commission>
+     */
+    public function getCommissions(): Collection
+    {
+        return $this->commissions;
+    }
+
+    public function addCommission(Commission $commission): self
+    {
+        if (!$this->commissions->contains($commission)) {
+            $this->commissions[] = $commission;
+            $commission->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommission(Commission $commission): self
+    {
+        if ($this->commissions->removeElement($commission)) {
+            // set the owning side to null (unless already changed)
+            if ($commission->getUser() === $this) {
+                $commission->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

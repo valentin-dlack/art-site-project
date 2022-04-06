@@ -6,6 +6,9 @@
     <title>{% block title %}Welcome!{% endblock %}</title>
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     {% block stylesheets %}
     {{ encore_entry_link_tags('app') }}
     {% endblock %}
@@ -45,23 +48,22 @@
                 </div>
                 <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                     <div class="flex-shrink-0 flex items-center">
-                        <img class="lg:block h-8 w-auto rounded-full"
-                            src="{{ asset('img/logo.jpg') }}"
-                            alt="Workflow">
+                        <img class="lg:block h-8 w-auto rounded-full" src="{{ asset('img/logo.jpg') }}" alt="Workflow">
                     </div>
                     <div class="hidden sm:block sm:ml-6">
                         <div class="flex space-x-4">
                             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                            <a href="{{path('home')}}" class="text-gray-300 hover:bg-blue-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                            <a href="{{path('home')}}"
+                                class="text-gray-300 hover:bg-blue-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                                 aria-current="page">Home</a>
 
                             <a href="{{path('app_posts')}}"
                                 class="text-gray-300 hover:bg-blue-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Posts</a>
 
-                            <a href="#"
+                            <a href="{{path('app_coms')}}"
                                 class="text-gray-300 hover:bg-blue-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Commissions</a>
 
-                            <a href="#"
+                            <a href="{{path('app_gallery')}}"
                                 class="text-gray-300 hover:bg-blue-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Gallery</a>
                         </div>
                     </div>
@@ -102,12 +104,16 @@
                             role="menu" id="profile_menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
                             tabindex="-1">
                             <!-- Active: "bg-gray-100", Not Active: "" -->
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:underline" role="menuitem" tabindex="-1"
-                                id="user-menu-item-0">Your Profile</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:underline" role="menuitem" tabindex="-1"
-                                id="user-menu-item-1">Settings</a>
-                            <a href="{{ path("app_logout")}}" class="block px-4 py-2 text-sm text-red-500 hover:underline" role="menuitem" tabindex="-1"
-                                id="user-menu-item-2">Sign out</a>
+                            <a href="{{ path("app_profile") }}" class="block px-4 py-2 text-sm text-gray-700 hover:underline" role="menuitem"
+                                tabindex="-1" id="user-menu-item-0">Your Profile</a>
+                            <a href="{{ path("app_logout")}}"
+                                class="block px-4 py-2 text-sm text-red-500 hover:underline" role="menuitem"
+                                tabindex="-1" id="user-menu-item-2">Sign out</a>
+                            {% if is_granted("ROLE_ARTIST") %}
+                            <a href="#"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:underline" role="menuitem"
+                                tabindex="-1" id="user-menu-item-2">Artist Panel</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -118,17 +124,17 @@
         <div class="hidden sm:hidden" id="mobile-menu">
             <div class="px-2 pt-2 pb-3 space-y-1">
                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                <a href="#" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
-                    aria-current="page">Dashboard</a>
+                <a href="{{path('home')}}" class="text-gray-300 hover:bg-blue-700 block px-3 py-2 rounded-md text-base font-medium"
+                    aria-current="page">Home</a>
 
-                <a href="#"
-                    class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Team</a>
+                <a href="{{path('app_posts')}}"
+                    class="text-gray-300 hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Posts</a>
 
-                <a href="#"
-                    class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Projects</a>
+                <a href="{{path('app_coms')}}"
+                    class="text-gray-300 hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Commissions</a>
 
-                <a href="#"
-                    class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Calendar</a>
+                <a href="{{path('app_gallery')}}"
+                    class="text-gray-300 hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Gallery</a>
             </div>
         </div>
     </nav>

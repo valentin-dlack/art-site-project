@@ -6,6 +6,7 @@ use App\Entity\Posts;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,14 +16,32 @@ class PostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title', TextType::class)
-            ->add('content', TextType::class)
+            ->add('title', TextType::class, [
+                "attr" => [
+                    "class" => "px-4 py-2 rounded border border-grey-light focus:outline-none focus:border-indigo-500 text-base leading-6 font-medium text-gray-900",
+                    "placeholder" => "Title"
+                ],
+                "label" => false
+            ])
+            ->add('content', TextareaType::class, [
+                "attr" => [
+                    "class" => "px-4 py-2 my-5 rounded border border-grey-light w-full h-64 focus:outline-none focus:border-indigo-500 text-base leading-6 font-medium text-gray-900",
+                    "style" => "resize: none;",
+                    "placeholder" => "Your new post !"
+                ],
+                "label" => false,
+            ])
             ->add('files', FileType::class, [
+                "attr" => [
+                    "class" => "block px-3 py-1.5 mb-2 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none",
+                ],
                 'required' => false,
+                "label" => false,
+                "mapped" => false,
             ])
             ->add('submit', SubmitType::class, [
                 "attr" => [
-                    "class" => "px-4 py-2 bg-blue-400 text-white rounded"
+                    "class" => "px-4 py-2 bg-blue-400 text-white rounded w-full text-center"
                 ]
             ])
         ;
