@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArtistPanelController!{% endblock %}
+
+{% block body %}
+
+<div class="flex lg:flex-row flex-col py-5 justify-center">
+    <div class="bg-white py-4 px-4 text-black shadow-lg mx-auto my-3 border rounded-md">
+        <div class="text-center text-xl font-bold mb-4">
+            <p>Commission stats :</p>
+        </div>
+        <div>
+            <p>Total commissions : {{commissions|length}}</p>
+            <p>Total commissions done : {{commissions_done|length}}</p>
+        </div>
+        <div class="mx-5 mt-7">
+            <a href="{{ path('app_artist_commissions') }}"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
+                See all commissions
+            </a>
+        </div>
+    </div>
+    <div class="bg-white py-4 px-4 text-black shadow-lg md:mx-auto mx-5 my-3 border rounded-md">
+        <div class="text-center text-xl font-bold mb-4">
+            <p>Latest commission :</p>
+        </div>
+        <div>
+            {% for commission in latest_commission %}
+            <a href="{{ path("app_artist_panel_commission_id", {id: commission.id}) }}" class="mx-auto">
+                <div
+                    class="my-2 px-4 py-4 lg:mx-auto mx-2 max-w-6xl border border-white bg-white rounded-md shadow-md hover:shadow-lg hover:border-gray-200 transition-all ease-in-out">
+                    <p class="text-xl">{{ commission.title }}</p>
+                    <br>
+                    <p class="text-base text-ellipsis">{{ commission.details }}</p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

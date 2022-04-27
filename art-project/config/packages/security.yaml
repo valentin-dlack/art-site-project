@@ -40,6 +40,7 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/posts/new, role: ROLE_USER }
         - { path: '^/posts/[0-9]+/(edit|delete)', role: ROLE_USER }
+        - { path: '^/commissions', role: ROLE_USER }
         - { path: ^/panel, role: ROLE_ARTIST }
 
 when@test:

@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArtistPanelController!{% endblock %}
+
+{% block body %}
+
+<!-- Commission not accepted -->
+<div class="my-5">
+    <p class="text-center text-xl font-bold mb-2">Commissions State : <span class="text-red-500">Not accepted</span></p>
+    {% for com in commissions_not_accepted %}
+    <a href="{{ path( "app_artist_panel_commission_id", {id: com.id}) }}" class="mx-auto">
+        <div
+            class="my-2 px-4 py-4 lg:mx-auto mx-2 max-w-6xl bg-white rounded-md shadow-md hover:translate-x-1 transition-all ease-in-out">
+            <p class="text-xl">{{ com.title }}<span class="font-thin text-lg text-gray-700"> -
+                    {{ com.createdat.format('d/m/Y G:i') }}</span></p>
+            <br>
+            <p class="text-base italic my-2 line-clamp-4">Refsheet link : <a href="{{ com.refsheet }}" class="text-blue-400 hover:underline">{{ com.refsheet }}</a></p>
+            <p class="text-base line-clamp-4">{{ com.details }}</p>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+
+<!-- Commission work in progress-->
+<div class="my-5">
+    <p class="text-center text-xl font-bold mb-2">Commissions State : <span class="text-orange-400">Work in progress</span></p>
+    {% for com in commissions_wip %}
+    <a href="{{ path( "app_artist_panel_commission_id", {id: com.id}) }}" class="mx-auto">
+        <div
+            class="my-2 px-4 py-4 lg:mx-auto mx-2 max-w-6xl bg-white rounded-md shadow-md hover:translate-x-1 transition-all ease-in-out">
+            <p class="text-xl">{{ com.title }}<span class="font-thin text-lg text-gray-700"> -
+                    {{ com.createdat.format('d/m/Y G:i') }}</span></p>
+            <br>
+            <p class="text-base italic my-2 line-clamp-4">Refsheet link : <a href="{{ com.refsheet }}" class="text-blue-400 hover:underline">{{ com.refsheet }}</a></p>
+            <p class="text-base line-clamp-4">{{ com.details }}</p>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+
+<!-- Commission done -->
+<div class="my-5">
+    <p class="text-center text-xl font-bold mb-2">Commissions State : <span class="text-green-600">Done</span></p>
+    {% for com in commissions_done %}
+    <a href="{{ path( "app_artist_panel_commission_id", {id: com.id}) }}" class="mx-auto">
+        <div
+            class="my-2 px-4 py-4 lg:mx-auto mx-2 max-w-6xl bg-white rounded-md shadow-md hover:translate-x-1 transition-all ease-in-out">
+            <p class="text-xl">{{ com.title }}<span class="font-thin text-lg text-gray-700"> -
+                    {{ com.createdat.format('d/m/Y G:i') }}</span></p>
+            <br>
+            <p class="text-base italic my-2 line-clamp-4">Refsheet link : <a href="{{ com.refsheet }}" class="text-blue-400 hover:underline">{{ com.refsheet }}</a></p>
+            <p class="text-base line-clamp-4">{{ com.details }}</p>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+
+{% endblock %}

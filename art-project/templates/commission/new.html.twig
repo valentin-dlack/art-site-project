@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArtistPanelController!{% endblock %}
+
+{% block body %}
+
+{{form_start(form)}}
+<div class="max-w-full p-6 bg-white rounded-lg shadow-xl mt-10 mx-20">
+    {{form(form)}}
+</div>
+<p>{{form_errors(form)}}</p>
+{{form_end(form)}}
+
+{% endblock %}

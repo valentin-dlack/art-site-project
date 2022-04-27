@@ -110,7 +110,7 @@
                                 class="block px-4 py-2 text-sm text-red-500 hover:underline" role="menuitem"
                                 tabindex="-1" id="user-menu-item-2">Sign out</a>
                             {% if is_granted("ROLE_ARTIST") %}
-                            <a href="#"
+                            <a href="{{ path("app_artist_panel") }}"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:underline" role="menuitem"
                                 tabindex="-1" id="user-menu-item-2">Artist Panel</a>
                             {% endif %}

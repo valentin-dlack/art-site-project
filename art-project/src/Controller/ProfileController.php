@@ -20,6 +20,7 @@ class ProfileController extends AbstractController
     {
         return $this->render('profile/show.html.twig', [
             'user' => $usersRepository->findOneBy(['id' => $id]),
+            'commission' => $usersRepository->findOneBy(['id' => $id])->getCommissions(),
         ]);
     }
 
