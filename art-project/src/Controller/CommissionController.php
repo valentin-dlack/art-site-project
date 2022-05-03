@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Commission;
 use App\Form\CommissionType;
 use App\Repository\CommissionRepository;
+use App\Repository\UsersRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,10 +15,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class CommissionController extends AbstractController
 {
     #[Route('/commissions', name: 'app_coms')]
-    public function index(CommissionRepository $commissionRepository): Response
+    public function index(CommissionRepository $commissionRepository, UsersRepository $usersRepository): Response
     {
         return $this->render('commission/index.html.twig', [
             'commissions' => $commissionRepository->findBy([], ['created_at' => 'DESC']),
+            'artist' => $usersRepository->findBy(['user_state' => 1], []),
         ]);
     }
 
@@ -25,8 +27,13 @@ class CommissionController extends AbstractController
     public function new(
         Request $request,
         EntityManagerInterface $manager,
+        UsersRepository $usersRepository,
     ) : Response
     {
+        $artist = $usersRepository->findBy(['user_state' => 1], []);
+        if ($artist[0]->getComsState() == 0) {
+            return $this->redirectToRoute('app_coms');
+        }
         $commission = new Commission();
         $form = $this->createForm(CommissionType::class, $commission);
 

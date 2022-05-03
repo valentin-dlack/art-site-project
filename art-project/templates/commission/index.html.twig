@@ -6,11 +6,28 @@
 
 <div class="text-center">
     <div class="mt-5 mb-5">
-        <p class="text-xl font-bold">Commissions State : <span class="text-green-500">Open - 6 Slots</span></p>
+        {% for user in artist %}
+        {% if user.ComsState == 0 %}
+        <p class="text-xl font-bold">Commissions State : <span class="text-red-500">Closed</span></p>
+        {% elseif user.ComsState >= 1 %}
+        <p class="text-xl font-bold">Commissions State : <span class="text-green-500">Open - {{user.ComsState}}
+                slots</span></p>
+        {% endif %}
+        {% endfor %}
     </div>
-    <a href="{{ path('new_com') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
-        Create a new commission
-    </a>
+    {% for user in artist %}
+        {% if user.ComsState == 0 %}
+        <a href="{{ path('new_com') }}">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:bg-blue-300" disabled>Create a new
+                commission</button>
+        </a>
+        {% elseif user.ComsState >= 1 %}
+        <a href="{{ path('new_com') }}">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Create a new
+                commission</button>
+        </a>
+        {% endif %}
+    {% endfor %}
 
     <div class="flex flex-col text-left">
         <h1 class="text-2xl font-sans font-semibold mx-auto my-5">Recent commissions</h1>
