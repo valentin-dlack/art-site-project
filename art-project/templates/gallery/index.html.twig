@@ -3,21 +3,10 @@
 {% block title %}Hello GalleryController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/lack/Documents/YDAYS/Dev-Web/art-site-project/art-project/src/Controller/GalleryController.php'|file_link(0) }}">src/Controller/GalleryController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/lack/Documents/YDAYS/Dev-Web/art-site-project/art-project/templates/gallery/index.html.twig'|file_link(0) }}">templates/gallery/index.html.twig</a></code></li>
-    </ul>
-</div>
 <div class="container mx-auto transition-all ease-in-out">
+    <!-- title -->
+    <h1 class="text-6xl font-sans text-center font-semibold mx-auto my-5">My art</h1>
     <div class="grid-cols-3 p-20 space-y-2 lg:space-y-0 lg:grid lg:gap-3 lg:grid-rows-3">
         <div class="w-full rounded">
             <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=989&q=80"

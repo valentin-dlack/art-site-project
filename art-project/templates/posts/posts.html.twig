@@ -8,16 +8,21 @@
 
     <h1 class="text-2xl font-sans font-semibold mx-auto my-5">Recent posts</h1>
     <div class="lg:mx-auto mx-2">
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
-            <a href="{{ path('new_post') }}">Create a new post</a>
-        </button>
+        <!-- If the logged user have the role artist -->
+        {% if is_granted("ROLE_ARTIST") %}
+        <a href="{{ path('new_post') }}"><button
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
+            Create a new post
+        </button></a>
+        {% endif %}
         {% for post in posts %}
         <a href="{{ path("show_post", {id: post.id}) }}" class="mx-auto">
-        <div class="my-2 px-4 py-4 lg:mx-auto mx-2 max-w-6xl bg-white rounded-md shadow-md hover:translate-x-1 transition-all ease-in-out">
-            <p class="text-xl">{{ post.title }}</p>
-            <br>
-            <p class="text-base line-clamp-4">{{ post.content }}</p>
-        </div>
+            <div
+                class="my-2 px-4 py-4 lg:mx-auto mx-2 max-w-6xl bg-white rounded-md shadow-md hover:translate-x-1 transition-all ease-in-out">
+                <p class="text-xl">{{ post.title }}</p>
+                <br>
+                <p class="text-base line-clamp-4">{{ post.content }}</p>
+            </div>
         </a>
         {% endfor %}
     </div>

@@ -13,7 +13,7 @@ use Symfony\Config\Doctrine\Orm\EntityManagerConfig;
 
 class ArtistPanelController extends AbstractController
 {
-    #[Route('/panel', name: 'app_artist_panel')]
+    #[Route('/panel', name: 'app_artist_panel', methods: ['GET', 'POST'])]
     public function index(CommissionRepository $commissionRepository, UsersRepository $usersRepository): Response
     {
         return $this->render('artist_panel/index.html.twig', [
@@ -21,6 +21,7 @@ class ArtistPanelController extends AbstractController
             'commissions_done' => $commissionRepository->findBy(['state' => '2'], ['created_at' => 'DESC']),
             'latest_commission' => $commissionRepository->findBy([], ['created_at' => 'DESC'], 1),
             'users' => $usersRepository->findAll(),
+            'user' => $this->getUser(),
         ]);
     }
 
@@ -66,5 +67,22 @@ class ArtistPanelController extends AbstractController
         $manager->flush();
 
         return $this->redirectToRoute('app_artist_commissions');
+    }
+
+    #[Route('/panel/set_status', name: 'set_status', methods: ['GET', 'POST'])]
+    public function setStatus(Request $request, UsersRepository $usersRepository, EntityManagerInterface $manager): Response
+    {
+        $user = $usersRepository->findOneBy(['email' => $this->getUser()->getUserIdentifier()]);
+        if ($request->request->get('com_status') == 0) {
+            $user->setComsState('0');
+        } elseif ($request->request->get('com_status') == 1) {
+            $user->setComsState($request->request->get('slots'));
+        }
+
+        $this->addFlash('success', 'Commission status changed');
+        $manager->persist($user);
+        $manager->flush();
+
+        return $this->redirectToRoute('app_artist_panel');
     }
 }

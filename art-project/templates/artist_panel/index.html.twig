@@ -5,7 +5,7 @@
 {% block body %}
 
 <div class="flex lg:flex-row flex-col py-5 justify-center">
-    <div class="bg-white py-4 px-4 text-black shadow-lg mx-auto my-3 border rounded-md">
+    <div class="bg-white pt-4 px-4 text-black shadow-lg mx-auto my-3 border rounded-md">
         <div class="text-center text-xl font-bold mb-4">
             <p>Commission stats :</p>
         </div>
@@ -13,10 +13,11 @@
             <p>Total commissions : {{commissions|length}}</p>
             <p>Total commissions done : {{commissions_done|length}}</p>
         </div>
-        <div class="mx-5 mt-7">
-            <a href="{{ path('app_artist_commissions') }}"
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
-                See all commissions
+        <div class="mx-5 my-3">
+            <a href="{{ path('app_artist_commissions') }}">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
+                    See all commissions
+                </button>
             </a>
         </div>
     </div>
@@ -37,6 +38,46 @@
             {% endfor %}
         </div>
     </div>
+    <div class="bg-white py-4 px-4 text-black shadow-lg mx-auto my-3 border rounded-md">
+        <div class="text-center text-xl font-bold mb-4">
+            <p>Commission Status :</p>
+        </div>
+        <form action="{{ path('set_status') }}" method="post">
+            <div class="text-center mb-3">
+                <!-- Select list of commission status of this user -->
+                <select name="com_status" class="mx-auto px-4 py-2 rounded-md border border-gray-400 focus:border-blue-400" id="commission_status" onchange="changeInput()">
+                    <option {% if user.ComsState == 0 %} selected {% endif %} value="0">Closed</option>
+                    <option {% if user.ComsState >= 1 %} selected {% endif %} value="1">Open</option>
+                </select>
+            </div>
+            <div>
+                <input id="slots" name="slots"
+                    class="px-4 py-2 rounded-md border border-gray-400 focus:border-blue-400 disabled:bg-gray-200"
+                    {% if user.ComsState >= 1 %} value="{{user.ComsState}}" {% endif %} {% if user.ComsState == 0 %} disabled {% endif %}>
+            </div>
+            <!-- submit btn -->
+            <div class="mx-auto mt-5">
+                <button type="submit"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
+                    Set status
+                </button>
+            </div>
+        </form>
+
+        <script>
+            function changeInput() {
+                if (document.getElementById("commission_status").value == 0) {
+                    console.log("disabled");
+                    document.getElementById("slots").disabled = true;
+                    document.getElementById("slots").value = "";
+                } else {
+                    console.log("enabled");
+                    document.getElementById("slots").disabled = false;
+                }
+            }
+        </script>
+    </div>
+</div>
 </div>
 
 {% endblock %}

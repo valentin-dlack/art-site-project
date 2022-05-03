@@ -108,6 +108,11 @@ class PostsController extends AbstractController
     public function edit(PostsRepository $postsRepository, int $id, Request $request, SluggerInterface $slugger, EntityManagerInterface $manager): Response
     {
         $post = $postsRepository->findOneBy(['id' => $id]);
+
+        if ($post->getUsers() !== $this->getUser()) {
+            throw $this->createAccessDeniedException();
+        }
+
         $form = $this->createForm(PostType::class, $post);
 
         $form->handleRequest($request);
