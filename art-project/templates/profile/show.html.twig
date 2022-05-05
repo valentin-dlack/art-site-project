@@ -39,7 +39,7 @@
                         class="text-orange-400">Work in progress</span> {%else%} <span
                         class="text-green-500">Done</span>{%endif%}</p>
                 <ul class="list-disc mt-2 mx-5">
-                    <li>{{ com.title }} <a href="#" class="text-blue-400 hover:underline">Details</a></li>
+                    <li>{{ com.title }} <a href="{{ path("app_artist_panel_commission_id", {id: com.id}) }}" class="text-blue-400 hover:underline">Details</a></li>
                 </ul>
             </div>
             <div class="p-5 my-3">
